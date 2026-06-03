@@ -1,0 +1,88 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOvHB+PNrqDXuZDhrXdUpAH",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Levimelodev/portfolio/blob/main/04-authentication-logging-lab\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "IcOjzY3Ym-dn"
+      },
+      "outputs": [],
+      "source": [
+        "#imports\n",
+        "from datetime import datetime\n",
+        "\n",
+        "#file open/create\n",
+        "file = open(\"logs.txt\", \"w\")\n",
+        "file.close()\n",
+        "\n",
+        "#database\n",
+        "user = \"admin\"\n",
+        "password = \"admin1234\"\n",
+        "\n",
+        "#variables\n",
+        "attempts = int(\"1\")\n",
+        "\n",
+        "#logs\n",
+        "def logs(message):\n",
+        " timelog = (datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\"))\n",
+        " time = (f\"[{timelog}] - \")\n",
+        "\n",
+        " file = open (\"logs.txt\", \"a\")\n",
+        " file.write (str(time) + message + \"\\n\")\n",
+        " file.close()\n",
+        "\n",
+        "#logs loop\n",
+        "while True:\n",
+        " user_input = input(\"User: \")\n",
+        " password_input = input(\"Password: \")\n",
+        "\n",
+        "#successful login\n",
+        " if user_input == user and password_input == password:\n",
+        "  print(\"Acess granted.\")\n",
+        "  logs(f\"ACESS GRANTED. - Attempt{attempts}/3\\n-user:{user_input}\\n-password:{password_input}\\n\")\n",
+        "  break\n",
+        "\n",
+        "#failed login\n",
+        " else:\n",
+        "  print(\"Acess denied.\")\n",
+        "  print(\"===============\")\n",
+        " logs(f\"ACESS DENIED. - Attempt{attempts}/3\\n-user:{user_input}\\n-password:{password_input}\\n\")\n",
+        "\n",
+        " attempts = (attempts)+1\n",
+        "\n",
+        "\n",
+        "#user blocked\n",
+        " if attempts == 4:\n",
+        "  print(\"Error...\\nToo many failed attempts. Try again later.\")\n",
+        "  logs(f\"ACESS BLOCKED. - Attempt{attempts-1}/3\\n-user:{user_input}\\n-password:{password_input}\")\n",
+        "  break"
+      ]
+    }
+  ]
+}
